@@ -71,18 +71,7 @@ AI Agent 長時間運行面臨兩個問題：
 
 > "Every component in a harness encodes an assumption about what the model can't do on its own."
 
-隨著模型進步：
-- 之前必要的組件可能變成負擔
-- Evaluator 的必要性取決於任務複雜度
-- 應定期重新評估每個組件的存在價值
-
-### 實際影響
-
-| 模型 | 需要的 Harness 組件 |
-|---|---|
-| Claude Sonnet 4.5 | 完整三角色 + Sprint + Context Reset |
-| Claude Opus 4.6 | 可以移除 Sprint 構造，保持 Planner + Evaluator |
-| 未來更強的模型 | 可能只需要 Evaluator 處理主觀品質判斷 |
+**當前決策：維持完整 Harness 架構，不做簡化。** 公司尚未出貨任何產品，現階段討論簡化架構是過早優化。等第一個產品成功上線並運行穩定後，再評估哪些組件可以移除。
 
 ## 成本參考
 

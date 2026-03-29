@@ -109,8 +109,32 @@ curl -X POST "http://127.0.0.1:3100/api/companies/{companyId}/issues" \
 Paperclip 只接受以下角色值：
 `ceo` `cto` `cmo` `cfo` `engineer` `designer` `pm` `qa` `devops` `researcher` `general`
 
-## 注意事項
+## 安全注意事項
+
+### dangerouslySkipPermissions
+
+`dangerouslySkipPermissions: true` 讓 Agent 跳過 Claude Code 的權限確認。
+
+**風險**：Agent 可以執行任意命令，包括刪除文件、修改系統設定。
+
+**建議**：
+- 開發/測試環境：可以使用 `true`
+- 生產環境：**必須設為 `false`**，並配置明確的權限白名單
+- 支付相關 Agent（小錢）：**特別危險**，應限制可執行的命令範圍
+
+### NODE_TLS_REJECT_UNAUTHORIZED=0
+
+這個設定停用了 TLS 證書驗證，是為了繞過代理/VPN 的 SSL 攔截。
+
+**風險**：中間人攻擊（MITM），API Key 可能被竊取。
+
+**建議**：
+- 只在開發環境使用
+- 生產環境應配置正確的 CA 證書
+- 或在代理軟體中將 `api.anthropic.com` 設為不解密直連
+
+## 其他注意事項
 
 1. Agent 需要能訪問 Anthropic API — `claude_local` adapter 會呼叫 `claude -p`
-2. 中國大陸需要代理，但要確保 `NODE_TLS_REJECT_UNAUTHORIZED=0`
+2. 中國大陸需要代理，但要注意上述 TLS 安全風險
 3. Codex adapter 在中文路徑下有 UTF-8 header bug，確保工作目錄是英文路徑
