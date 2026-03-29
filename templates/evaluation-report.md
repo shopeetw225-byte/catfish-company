@@ -1,4 +1,5 @@
 # 評分報告模板
+> Template Version: v1.0 | Last Updated: 2026-03-29
 
 > Evaluator 在獨立驗證後產出
 

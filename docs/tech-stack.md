@@ -44,7 +44,7 @@
 | 技術 | 用途 |
 |---|---|
 | 綠界支付 ECPay | 台灣市場（信用卡/ATM/超商） |
-| Stripe | 大陸/國際市場（M3 階段） |
+| Stripe | 國際市場（M3 階段） |
 
 ### 支付安全規範
 - HashKey/HashIV 只存在 Workers Secrets，不進 git

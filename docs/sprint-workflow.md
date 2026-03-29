@@ -123,3 +123,10 @@ CEO 收到董事會的產品方向後，必須回答六個問題：
 | 3.5-4.0 | 小修 | 只修關鍵問題，不加新功能 |
 | < 3.5 | 重做 | 打回 Phase 2，保留評分報告作為參考 |
 | 連續兩次 < 3.0 | 砍掉 | 放棄這個產品方向 |
+
+## 相關文件
+- 狀態機和有效轉換：`docs/agent-communication-protocol.md`
+- 評分標準詳情：`docs/evaluation-criteria.md`
+- 監控和故障恢復：`docs/operations.md`
+- 交接文件模板：`templates/handoff-document.md`
+- 評分報告模板：`templates/evaluation-report.md`

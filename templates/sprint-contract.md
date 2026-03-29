@@ -1,4 +1,5 @@
 # Sprint Contract 模板
+> Template Version: v1.0 | Last Updated: 2026-03-29
 
 ## Sprint 名稱
 [產品名 — Sprint N]

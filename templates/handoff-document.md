@@ -1,4 +1,5 @@
 # Sprint 交接文件模板
+> Template Version: v1.0 | Last Updated: 2026-03-29
 
 > Generator 在 sprint 結束後提交給 Evaluator
 

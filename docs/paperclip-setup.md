@@ -32,6 +32,8 @@ pnpm dev
 
 ### 方式二：API 操作（推薦）
 
+> ⚠️ **安全警告**：以下範例使用 `dangerouslySkipPermissions: true` 和 `NODE_TLS_REJECT_UNAUTHORIZED=0`，僅適用於開發環境。生產環境必須移除這些設定。詳見本文件底部「安全注意事項」章節。
+
 ```bash
 # 建立 Agent（以 CEO 為例）
 curl -X POST "http://127.0.0.1:3100/api/companies/{companyId}/agents" \
@@ -80,7 +82,7 @@ curl -X PATCH "http://127.0.0.1:3100/api/agents/{agentId}" \
   -d '{"runtimeConfig":{"heartbeat":{"enabled":true,"intervalSec":300}}}'
 ```
 
-### 環境變數（中國大陸用戶）
+### 環境變數（使用代理/VPN 時）
 如果使用代理/VPN，需要在 adapter 配置中加入：
 ```json
 "env": {"NODE_TLS_REJECT_UNAUTHORIZED": "0"}
@@ -136,5 +138,5 @@ Paperclip 只接受以下角色值：
 ## 其他注意事項
 
 1. Agent 需要能訪問 Anthropic API — `claude_local` adapter 會呼叫 `claude -p`
-2. 中國大陸需要代理，但要注意上述 TLS 安全風險
+2. 使用代理時要注意上述 TLS 安全風險
 3. Codex adapter 在中文路徑下有 UTF-8 header bug，確保工作目錄是英文路徑

@@ -23,15 +23,16 @@
         │     → 把方向擴展成完整 PRD
         │     → 與 Evaluator 協商 Sprint Contract
         │
-        ├── CTO 小李（Generator Lead）
+        ├── CTO 小李（Generator Lead + Backup Orchestrator + DevOps）
         │     ├── 工程師 小林（Generator — 全端）
         │     └── 支付專家 小錢（Generator — ECPay）
         │     → 按 Sprint Contract 實作
         │     → 不能 review 自己的代碼
+        │     → CEO 故障時自動接管調度（4 小時超時）
         │
         └── QA 小趙（Evaluator）
               → 獨立驗證，偏向懷疑
-              → 5 維度量化評分
+              → 5 維度量化評分（每季校準一次）
               → 直接向 CEO 匯報（獨立於 CTO）
 ```
 
@@ -49,21 +50,23 @@
 
 ## 目標市場
 
-- **台灣**（主要）— 繁體中文，綠界支付
-- **大陸**（次要）— 簡體中文，後續整合微信/支付寶
+- **台灣**（唯一市場）— 繁體中文，綠界支付
 
 ## 目錄結構
 
 ```
 catfish-company/
-├── README.md                    # 本文件
+├── README.md                              # 本文件
 ├── docs/
-│   ├── harness-architecture.md  # Harness Design 架構詳解
-│   ├── sprint-workflow.md       # Sprint 流程規範
-│   ├── evaluation-criteria.md   # 評分標準
-│   ├── tech-stack.md            # 技術棧決策
-│   ├── business-model.md        # 商業模式與收入評估
-│   └── paperclip-setup.md       # Paperclip 部署指南
+│   ├── harness-architecture.md            # Harness Design 架構詳解
+│   ├── sprint-workflow.md                 # Sprint 流程規範
+│   ├── evaluation-criteria.md             # 評分標準
+│   ├── tech-stack.md                      # 技術棧決策
+│   ├── business-model.md                  # 商業模式與收入評估
+│   ├── paperclip-setup.md                 # Paperclip 部署指南
+│   ├── operations.md                      # 監控、故障恢復、部署回滾
+│   ├── agent-communication-protocol.md    # Agent 間通訊協議與狀態機
+│   └── review-response.md                # 架構審查回應記錄
 ├── agents/
 │   ├── ceo/AGENTS.md            # CEO 小張 — Orchestrator
 │   ├── pm/AGENTS.md             # PM 小陳 — Planner
@@ -72,18 +75,48 @@ catfish-company/
 │   ├── payment/AGENTS.md        # 支付專家 小錢 — Generator (Payment)
 │   └── qa/AGENTS.md             # QA 小趙 — Evaluator
 └── templates/
-    ├── prd-template.md          # PRD 模板
-    ├── sprint-contract.md       # Sprint Contract 模板
-    ├── handoff-document.md      # 交接文件模板
-    └── evaluation-report.md     # 評分報告模板
+    ├── prd-template.md          # PRD 模板 (v1.0)
+    ├── sprint-contract.md       # Sprint Contract 模板 (v1.0)
+    ├── handoff-document.md      # 交接文件模板 (v1.0)
+    └── evaluation-report.md     # 評分報告模板 (v1.0)
+```
+
+### 文件關係圖
+
+```
+sprint-workflow.md ──引用──→ agent-communication-protocol.md（狀態機）
+       │                            │
+       │                            ├──→ templates/sprint-contract.md
+       │                            ├──→ templates/handoff-document.md
+       │                            └──→ templates/evaluation-report.md
+       │
+       └──引用──→ evaluation-criteria.md（評分標準）
+
+operations.md ──引用──→ agents/cto/AGENTS.md（DevOps 職責）
+       │
+       └──引用──→ paperclip-setup.md（安全配置）
+
+business-model.md ──引用──→ evaluation-criteria.md（產品提案評估）
 ```
 
 ## 快速開始
 
 1. 安裝 [Paperclip](https://github.com/paperclipai/paperclip)
-2. 建立公司，匯入 `agents/` 下的 AGENTS.md 作為各 agent 的 instructions
-3. 建立第一個產品任務，觸發 CEO heartbeat
-4. 觀察 Sprint 流程自動運轉
+2. **閱讀安全注意事項**：`docs/paperclip-setup.md` 的安全章節
+3. 建立公司，匯入 `agents/` 下的 AGENTS.md 作為各 agent 的 instructions
+4. 閱讀 `docs/agent-communication-protocol.md` 了解 Agent 間如何協作
+5. 建立第一個產品任務，觸發 CEO heartbeat
+6. 觀察 Sprint 流程自動運轉
+
+## 審查記錄
+
+| 日期 | 版本 | 評分 | 狀態 |
+|---|---|---|---|
+| 2026-03-29 | v1 | 2.2/5.0 | 未通過 |
+| 2026-03-29 | v2 | 3.3/5.0 | 未通過（差 0.2） |
+| 2026-03-29 | v3 | 待審 | 修復二審全部問題 |
+
+詳見 `docs/review-response.md`
 
 ## 授權
 
